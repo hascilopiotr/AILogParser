@@ -1,14 +1,15 @@
 import re
-
+from datetime import datetime
+from collections import Counter
 pattern = re.compile(r'\[(.*?)\] \[(\w+)\] \[(\w+)\] (.+)')
-
 
 class LogParser:
     def parse_line(self, line):
         match = pattern.match(line)
         if match:
             timestamp, level, module, message = match.groups()
-            return { 'timestamp' : timestamp,
+            ts = datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S')
+            return { 'timestamp' : ts,
                      'level' : level,
                      'module' : module,
                      'message' : message }
@@ -20,11 +21,3 @@ class LogParser:
                 parsed = self.parse_line(line.strip())
                 if parsed:
                     yield parsed
-
-if __name__ == '__main__':
-    parser = LogParser()
-    entries = list(parser.parse_file('test_logs.log'))
-    print(f"Sparsowano: {len(entries)} linii")
-    if entries:
-        print(f"Pierwsza: {entries[0]}")
-        print(f"Ostatnia: {entries[-1]}")
