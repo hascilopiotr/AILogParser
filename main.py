@@ -21,3 +21,9 @@ for msg, count in analyzer.top_messages(5):
 
 print("\n=== Summary ===")
 print(analyzer.summary())
+
+
+from src.ai_insights import AIInsights
+
+ai = AIInsights()
+ai.summarize_logs(analyzer.summary())

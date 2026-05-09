@@ -157,7 +157,7 @@ messages = {
 
 def generate_logs():
 
-    with open('test_logs.log', 'w') as f:
+    with open('../test_logs.log', 'w') as f:
         current_time = datetime(2025, 1, 1, 8, 0, 0, 0)
         for _ in range(1000):
             current_time += timedelta(seconds=random.randint(1, 15))
@@ -169,9 +169,3 @@ def generate_logs():
             message = random.choice(messages[module][level])
             log_entry = f"[{timestamp}] [{level}] [{module}] {message}\n"
             f.write(log_entry)
-
-if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
-    logging.info("Generating synthetic log data...")
-    generate_logs()
-    logging.info("Log generation complete. Logs written to 'test_logs.log'.")
